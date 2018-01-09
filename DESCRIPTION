@@ -1,0 +1,17 @@
+Package: OpVaR
+Type: Package
+Title: Statistical Methods for Modeling Operational Risk
+Version: 1.0
+Date: 2018-01-08
+Author: Christina Zou [aut,cre], Marius Pfeuffer [aut], Matthias Fischer [aut], Kristina Dehler [ctb], Nicole Derfuss [ctb], Benedikt Graswald [ctb], Linda Moestel [ctb], Jixuan Wang [ctb], Leonie Wicht [ctb]
+Maintainer: Christina Zou <christina.zou@maths.ox.ac.uk>
+Description: Functions for modeling operational (value-at-)risk. The implementation comprises functions for modeling loss frequencies and loss severities with plain, mixed (Frigessi et al. (2012) <doi:10.1023/A:1024072610684>) or spliced distributions using Maximum Likelihood estimation and Bayesian approaches (Ergashev et al. (2013) <doi:10.21314/JOP.2013.131>). In particular, the parametrization of tail distributions includes fitting of Tukey-type distributions (Kuo and Headrick (2014) <doi:10.1155/2014/645823>). Furthermore, the package contains the modeling of bivariate dependencies between loss severities and frequencies, Monte Carlo simulation for total loss estimation as well as a closed-form approximation based on Degen (2010) <doi:10.21314/JOP.2010.084> to determine the value-at-risk.  
+License: GPL-3
+Imports: evmix, VineCopula, tea, actuar, vcd, goftest, truncnorm,
+        ReIns, MASS
+Suggests: knitr, rmarkdown
+VignetteBuilder: knitr
+NeedsCompilation: no
+Packaged: 2018-01-09 16:06:14 UTC; zizzy
+Repository: CRAN
+Date/Publication: 2018-01-09 18:28:47 UTC
