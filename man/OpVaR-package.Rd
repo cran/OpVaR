@@ -8,13 +8,7 @@
 \description{
 \packageDescription{OpVaR}
 }
-\details{
 
-The DESCRIPTION file:
-\packageDESCRIPTION{OpVaR}
-\packageIndices{OpVaR}
-Functions for modeling operational risk. 
-}
 \author{
 \packageAuthor{OpVaR}
 

@@ -44,7 +44,7 @@
   In the first step, the threshold given chosen body and tail distribution is estimated.
   For further details on the methods for the threshold estimation, see fitThreshold.
   In the second step, the parameters of the body and the tail distribution are obtained by maximum likelihood estimation. 
-  For the body distribution parameters, all data points are fittet to the chosen distribution. For the estimation of the parameters of the tail distribution, only the data points above the threshold are used.
+  For spliced distributions, truncated body distributions are fitted to truncated data. For the estimation of the parameters of the tail distribution, only the data points above the threshold are used.
   In the last step, the weight w is obtained by maximum likelihood estimation.
   
 }

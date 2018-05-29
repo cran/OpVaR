@@ -63,7 +63,7 @@ buildSplicedSevdist <- function(body.distr, body.param, tail.distr, tail.param, 
   
   parlist[[1]][[1]]=function(x){ifelse(x>thresh, evaluate("d", tail.distr, tail.param, x)/(1-evaluate("p", tail.distr, tail.param, thresh)), 0)}
   parlist[[1]][[2]]=function(q){ifelse(q>thresh, (evaluate("p", tail.distr, tail.param, q) -  evaluate("p", tail.distr, tail.param, thresh)) /(1-evaluate("p", tail.distr, tail.param, thresh)),0)}
-  parlist[[1]][[3]]=function(p){ifelse(p>(1-weight), evaluate("q", tail.distr, tail.param, evaluate("p", tail.distr, tail.param, thresh) + p*(1-evaluate("p", tail.distr, tail.param, thresh))),0)}
+  parlist[[1]][[3]]=function(p){ifelse(p>weight, evaluate("q", tail.distr, tail.param, evaluate("p", tail.distr, tail.param, thresh) + p*(1-evaluate("p", tail.distr, tail.param, thresh))),0)}
   parlist[[1]][[5]]=tail.param
   parlist[[1]][[6]]=tail.distr
   

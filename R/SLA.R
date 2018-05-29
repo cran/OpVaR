@@ -158,7 +158,7 @@ sla <- function(opriskmodel, alpha, xi_low = 0.8, xi_high = 1.2, plot = FALSE){
     simple_VaR <- qsevdist(1 - (1-alpha)/mean_freq,  opriskmodel[[cell]]$sevdist)
     
     # test if mean severity is finite
-    mean_sev <- try(integrate(function(x){x*dsevdist(x, opriskmodel[[cell]]$sevdist)}, lower = 0, upper = Inf)$value, silent=TRUE)
+    mean_sev <- try(pracma::integral(function(x){x*dsevdist(x, opriskmodel[[cell]]$sevdist)}, xmin = 0, xmax = Inf, method = "Kronrod"), silent=TRUE)
     
     # retrieve the tail index from the tail severity distribution
     tailindex <- do.call(paste("tailindex", as.character(cell_type), sep = "_"), list(opriskmodel[[cell]]$sevdist))
