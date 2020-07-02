@@ -39,7 +39,7 @@
   
   \examples{
     data(lossdat)
-    \dontrun{
+    \donttest{
     param<-fitSplicedBestFit(lossdat[[1]], "lnorm", "gpd")
     param[[1]] ## Parameters of the body distribution
     param[[2]] ## Parameters of the tail distribution

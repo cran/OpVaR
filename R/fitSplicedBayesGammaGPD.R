@@ -94,10 +94,8 @@ fitSplicedBayesGammaGPD<-function(cell,prior,burnin=10,niter=100,proposal_scale=
     if (u<acc){
       xi_old=xi_prop # accept if u<acc, else keep old values
     }
-    
-    initialval[4]<<-xi_old  # saving the current values in the vector initialval
-    Sample_xi[i]<<-xi_old # saving the vector
-    return(xi_old) # returns the current value
+  
+    return(xi_old) 
   }
   
   
@@ -148,8 +146,6 @@ fitSplicedBayesGammaGPD<-function(cell,prior,burnin=10,niter=100,proposal_scale=
       tau_old=tau_prop
     }
     
-    initialval[3]<<-tau_old
-    Sample_tau[i]<<-tau_old
     return(tau_old)
   }
   
@@ -200,8 +196,6 @@ fitSplicedBayesGammaGPD<-function(cell,prior,burnin=10,niter=100,proposal_scale=
       beta_old=beta_prop
     }
     
-    initialval[5]<<-beta_old
-    Sample_beta[i]<<-beta_old
     return(beta_old)
   }
   
@@ -252,8 +246,6 @@ fitSplicedBayesGammaGPD<-function(cell,prior,burnin=10,niter=100,proposal_scale=
       gshape_old=gshape_prop
     }
     
-    initialval[1]<<-gshape_old
-    Sample_gshape[i]<<-gshape_old
     return(gshape_old)
   }
   
@@ -298,9 +290,7 @@ fitSplicedBayesGammaGPD<-function(cell,prior,burnin=10,niter=100,proposal_scale=
       
       gscale_old=gscale_prop
     }
-    
-    initialval[2]<<-gscale_old
-    Sample_gscale[i]<<-gscale_old
+  
     return(gscale_old)
   }
   
@@ -316,19 +306,26 @@ fitSplicedBayesGammaGPD<-function(cell,prior,burnin=10,niter=100,proposal_scale=
     
     initialval=c(start[1],start[2],start[3],start[5],start[4])
     
-    set.seed(1)
-    
     
     ## actual MH-algorithm with number of iterations = niter + burnin
     # current process of updating of the vector initialval
     # cell is data given to the function
     
     for(i in seq(1:(niter+burnin))){
-      mhstep1(initialval,cell)
-      mhstep2(initialval,cell)
-      mhstep3(initialval,cell)
-      mhstep4(initialval,cell)
-      mhstep5(initialval,cell)
+      initialval[4] = mhstep1(initialval,cell)
+      Sample_xi[i] = initialval[4] 
+      
+      initialval[3] = mhstep2(initialval,cell)
+      Sample_tau[i] = initialval[3] 
+      
+      initialval[5] = mhstep1(initialval,cell)
+      Sample_beta[i] = initialval[5] 
+
+      initialval[1] = mhstep1(initialval,cell)
+      Sample_gshape[i] = initialval[1] 
+      
+      initialval[2] = mhstep1(initialval,cell)
+      Sample_gscale[i] = initialval[2] 
     }
 
     

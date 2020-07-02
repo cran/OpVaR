@@ -103,9 +103,7 @@ fitSplicedBayesKDEGPD<-function(cell,prior,burnin=10,niter=100,proposal_scale=ev
     if (u<acc){
       xi_old=xi_prop # accept if u<acc, else keep old values
     }
-    
-    initialval[1]<<-xi_old  # saving the current values in the vector initialval
-    Sample_xi[i]<<-xi_old # saving the vector
+
     return(xi_old) # returns the current value
   }
   
@@ -154,9 +152,6 @@ fitSplicedBayesKDEGPD<-function(cell,prior,burnin=10,niter=100,proposal_scale=ev
     if (u<acc){
       tau_old=tau_prop
     }
-    
-    initialval[2]<<-tau_old
-    Sample_tau[i]<<-tau_old
     return(tau_old)
   }
   
@@ -202,9 +197,6 @@ fitSplicedBayesKDEGPD<-function(cell,prior,burnin=10,niter=100,proposal_scale=ev
     if(u<acc){
       beta_old=beta_prop
     }
-    
-    initialval[3]<<-beta_old
-    Sample_beta[i]<<-beta_old
     return(beta_old)
   }
   
@@ -213,21 +205,25 @@ fitSplicedBayesKDEGPD<-function(cell,prior,burnin=10,niter=100,proposal_scale=ev
   # ACTUAL ALGORITHM
   ##########################################################################################################
 
-    ########################################################################################################################
     #initial values determined by flognormgpd
 
     initialval=c(start[5],start[3],start[4])
     
-    set.seed(1)
-    
+
     ## actual MH-algorithm with number of iterations = niter + burnin
     # current process of updating of the vector initialval
     # cell is data given to the function
     
     for(i in seq(1:(niter+burnin))){
-      mhstep1(initialval,cell)
-      mhstep2(initialval,cell)
-      mhstep3(initialval,cell)
+      initialval[1] =  mhstep1(initialval, cell)
+      Sample_xi[i] =  initialval[1]
+      
+      initialval[2] = mhstep2(initialval, cell)
+      Sample_tau[i] = initialval[2]
+      
+      initialval[3] = mhstep3(initialval,cell)
+      Sample_beta[i] = initialval[3] 
+      
     }
     
     

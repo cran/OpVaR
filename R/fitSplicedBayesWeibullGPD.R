@@ -95,10 +95,8 @@ fitSplicedBayesWeibullGPD<-function(cell,prior,burnin=10,niter=100,proposal_scal
     if (u<acc){
       xi_old=xi_prop # accept if u<acc, else keep old values
     }
-    
-    initialval[4]<<-xi_old  # saving the current values in the vector initialval
-    Sample_xi[i]<<-xi_old # saving the vector
-    return(xi_old) # returns the current value
+  
+    return(xi_old) 
   }
   
   
@@ -149,9 +147,7 @@ fitSplicedBayesWeibullGPD<-function(cell,prior,burnin=10,niter=100,proposal_scal
       tau_old=tau_prop
 
     }
-    
-    initialval[3]<<-tau_old
-    Sample_tau[i]<<-tau_old
+   
     return(tau_old)
   }
   
@@ -202,9 +198,6 @@ fitSplicedBayesWeibullGPD<-function(cell,prior,burnin=10,niter=100,proposal_scal
       beta_old=beta_prop
 
     }
-    
-    initialval[5]<<-beta_old
-    Sample_beta[i]<<-beta_old
     return(beta_old)
   }
   
@@ -254,9 +247,7 @@ fitSplicedBayesWeibullGPD<-function(cell,prior,burnin=10,niter=100,proposal_scal
       wshape_old=wshape_prop
 
     }
-    
-    initialval[1]<<-wshape_old
-    Sample_wshape[i]<<-wshape_old
+  
     return(wshape_old)
   }
   
@@ -305,9 +296,7 @@ fitSplicedBayesWeibullGPD<-function(cell,prior,burnin=10,niter=100,proposal_scal
       gscale_old=wscale_prop
 
     }
-    
-    initialval[2]<<-wscale_old
-    Sample_wscale[i]<<-wscale_old
+
     return(wscale_old)
   }
   
@@ -325,18 +314,28 @@ fitSplicedBayesWeibullGPD<-function(cell,prior,burnin=10,niter=100,proposal_scal
     
     ########################################################################################################################
 
-    set.seed(1)
     
     ## actual MH-algorithm with number of iterations = niter + burnin
     # current process of updating of the vector initialval
     # cell is data given to the function
     
     for(i in seq(1:(niter+burnin))){
-      mhstep1(initialval,cell)
-      mhstep2(initialval,cell)
-      mhstep3(initialval,cell)
-      mhstep4(initialval,cell)
-      mhstep5(initialval,cell)
+      initialval[4] = mhstep1(initialval,cell)
+      Sample_xi[i] = initialval[4]
+      
+      
+      initialval[3] = mhstep2(initialval,cell)
+      Sample_tau[i] = initialval[3]
+     
+      
+      initialval[5] = mhstep3(initialval,cell)
+      Sample_beta[i] = initialval[5]
+      
+      initialval[1] = mhstep4(initialval,cell)
+      Sample_wshape[i] = initialval[1]
+     
+      initialval[2] = mhstep5(initialval,cell)
+      Sample_wscale[i] = initialval[2]
     }
     
     # determining and saving sample values without burn-in-phase

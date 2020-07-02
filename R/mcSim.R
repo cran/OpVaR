@@ -1,13 +1,12 @@
 
-mcSim=function (opriskmodel, n_sim, verbose=TRUE) 
-{
+mcSim=function(opriskmodel, n_sim, verbose=TRUE){
   total_loss = list()
   for (i in 1:length(opriskmodel)) {
     if(verbose){
       print(paste("Cell", i))
       pb <- txtProgressBar(min = 0, max = n_sim, style = 3)
     }
-    total_loss_sim_cell = NULL
+    total_loss_sim_cell = list()
     for (iter in 1:n_sim) {
       sevmodel = opriskmodel[[i]]$sevdist
       sevsim = 0
@@ -27,12 +26,12 @@ mcSim=function (opriskmodel, n_sim, verbose=TRUE)
         u2 = BiCopCondSim(n,cond.val=u1,cond.var=1,opriskmodel[[i]]$dependency)
         sevsim = qsevdist(u2, sevmodel)
       }
-      total_loss_sim_cell = c(total_loss_sim_cell, sum(sevsim))
+      total_loss_sim_cell[[iter]] = sum(sevsim)
       if(verbose){
         setTxtProgressBar(pb, iter)
       }
     }
-    total_loss[[i]] = total_loss_sim_cell
+    total_loss[[i]] = unlist(total_loss_sim_cell)
   }
   total_loss
 }

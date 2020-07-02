@@ -45,7 +45,7 @@ Frigessi et al. \emph{A Dynamic Mixture Model for Unsupervised Tail Estimation w
 }
 
 \examples{
-\dontrun{
+\donttest{
 data(lossdat)
 sev=fitMixing(lossdat[[1]],"weibull","gpd")
 sev

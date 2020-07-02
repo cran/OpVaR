@@ -6,7 +6,7 @@
 }
 
 \description{
-  Given the the weights of the spliced distribution are obtained by maximum likelihood estimation.
+  Fitting the weights of the spliced distribution.
 }
 
 \usage{
@@ -25,9 +25,7 @@
 
 \details{
   %%  ~~ If necessary, more details than the description above ~~
-    Given the threshold t, a density function \eqn{d1} for the body distribution and a density function \eqn{d2} for the tail distribution, the incidental spliced density function
-  has the formula \eqn{d(x)=w*d1(x)} if \eqn{x<=t} and \eqn{d(x)=(1-w)*d2(x)} of \eqn{x>t}.
-  The weight w is needed to normalize the density function. It is obtained by maximum likelihood estimation. 
+    Given the threshold t, this function fits the weight on the body distribution as part of fitting the parameters of the spliced distribution.
   The weights depends only on the number of data points below and above the threshold, not on the distribution functions in the body and the tail.
   }
   

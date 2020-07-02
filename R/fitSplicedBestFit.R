@@ -12,7 +12,7 @@ fitSplicedBestFit <- function(cell, body, tail, thresh0 = 0.7, thresh.max = 0.98
     par <- fitSplicedPar(cell, loss[i], body, tail)
     weight <- fitWeights(cell, loss[i])
     sevdist.tmp <- buildSplicedSevdist(body, par[[1]], tail, par[[2]], loss[i], weight)
-    pval <- stats::ks.test(loss, rspliced(N, sevdist.tmp))$p.value
+    pval <- suppressWarnings(stats::ks.test(loss, rspliced(N, sevdist.tmp))$p.value)
     results[[count]] = c(par, loss[i], weight)
     test[count] = pval
     count = count + 1 

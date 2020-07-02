@@ -42,7 +42,6 @@
   
   Degen, Matthias. "The calculation of minimum regulatory capital using single-loss approximations." The Journal of Operational Risk 5.4 (2010): 3.
   
-  Zou, Christina Z. et al. (2018): "A Monotone Spline Interpolated Closed-Form Approximation for Operational Value-at-Risk." Working Paper (In Preparation)
 }
 
 \author{
@@ -51,7 +50,7 @@
 
 
 \examples{
-  \dontrun{
+  \donttest{
   #Example: SLA for the spliced log-gamma gpd model (tail-index = 0.014, no interpolation required)
   opriskmodel = list()
   opriskmodel[[1]] = list()

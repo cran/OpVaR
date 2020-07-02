@@ -40,6 +40,6 @@
 
 \seealso{
   %% ~~objects to See Also as \code{\link{help}}, ~~~
-    The sevdist objects according to different types are built via \code{\link{buildPlainSevdist}}, \code{\link{buildSplicedSevdist}} and \code{\link{buildMixingSevdist}}.
+    The sevdist objects according to different types are built via \code{\link{buildPlainSevdist}}, \code{\link{buildSplicedSevdist}} and \code{\link{buildMixingSevdist}}. For given data, a freqdist object can be fitted using \code{\link{fitFreqdist}}.
 }
 

@@ -38,7 +38,7 @@
   }
 }
 \details{
-  The dynamic mixture pdf is given by l(x)=1/r*((1-W(x))*f_1(x)+W(x)*f_2(x)), where W(x) denotes a Cauchy cdf, f_1(x) and f_2(x) body and tail pdfs, r is a normalizing constant.
+  The dynamic mixture pdf is given by \eqn{f(x)=1/r*((1-W(x))*g(x)+W(x)*h(x))}, where W(x) denotes a Cauchy cdf, \eqn{g} and \eqn{h} body and tail pdfs, r is a normalizing constant.
 }
 \author{
 Marius Pfeuffer
@@ -46,6 +46,7 @@ Marius Pfeuffer
 
 \references{
   A. Frigessi et al.: \emph{A Dynamic Mixture Model for Unsupervised Tail Estimation without Threshold Selection}, Extremes 5(3):219-235, 2002
+  
   Y. Hu: \emph{User's Guide for evmix Package in R.}, Working Paper, 2013
 }
 

@@ -94,9 +94,7 @@ fitSplicedBayesLognormGPD<-function(cell,prior,burnin=10,niter=100,proposal_scal
       xi_old=xi_prop # accept if u<acc, else keep old values
     }
     
-    initialval[1]<<-xi_old  # saving the current values in the vector initialval
-    Sample_xi[i]<<-xi_old # saving the vector
-    return(xi_old) # returns the current value
+    return(xi_old)
   }
  
   
@@ -147,8 +145,7 @@ fitSplicedBayesLognormGPD<-function(cell,prior,burnin=10,niter=100,proposal_scal
       tau_old=tau_prop
     }
     
-    initialval[2]<<-tau_old
-    Sample_tau[i]<<-tau_old
+    return(tau_old)
   }
   
   #### MH-step 3: sampling beta 
@@ -197,8 +194,6 @@ fitSplicedBayesLognormGPD<-function(cell,prior,burnin=10,niter=100,proposal_scal
       beta_old=beta_prop
     }
     
-    initialval[3]<<-beta_old
-    Sample_beta[i]<<-beta_old
     return(beta_old)
   }
   
@@ -246,8 +241,6 @@ fitSplicedBayesLognormGPD<-function(cell,prior,burnin=10,niter=100,proposal_scal
       mu_old=mu_prop
     }
     
-    initialval[4]<<-mu_old
-    Sample_mu[i]<<-mu_old
     return(mu_old)
   }
   
@@ -292,8 +285,6 @@ fitSplicedBayesLognormGPD<-function(cell,prior,burnin=10,niter=100,proposal_scal
       sigma_old=sigma_prop
     }
     
-    initialval[5]<<-sigma_old
-    Sample_sigma[i]<<-sigma_old
     return(sigma_old)
   }
   
@@ -309,19 +300,27 @@ fitSplicedBayesLognormGPD<-function(cell,prior,burnin=10,niter=100,proposal_scal
     
     initialval=c(start[5],start[3],start[4],start[1],start[2]) 
     
-    set.seed(1)
-    
     
     ## actual MH-algorithm with number of iterations = niter + burnin
     # current process of updating of the vector initialval
     # cell is data given to the function
     
     for(i in seq(1:(niter+burnin))){
-      mhstep1(initialval,cell)
-      mhstep2(initialval,cell)
-      mhstep3(initialval,cell)
-      mhstep4(initialval,cell)
-      mhstep5(initialval,cell)
+      initialval[1] = mhstep1(initialval, cell)
+      Sample_xi[i] = initialval[1]
+      
+      initialval[2] = mhstep2(initialval, cell)
+      Sample_tau[i] = initialval[2]
+      
+      initialval[3] = mhstep3(initialval, cell)
+      Sample_beta[i] = initialval[3]
+      
+      initialval[4] = mhstep4(initialval, cell)
+      Sample_mu[i] = initialval[4]
+      
+      initialval[5] = mhstep5(initialval, cell)
+      Sample_sigma[i] = initialval[5]
+ 
     }
     
     

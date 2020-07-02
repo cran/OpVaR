@@ -1,27 +1,16 @@
 
 goftest=function(cell, object){
   if(class(object) == "sevdist"){
-    save_sevdist=FALSE
-    if(exists("object")) save_sevdist=TRUE; s2=object
-    object<<-object
-    ddistn <- function(x) dsevdist(x,object)
-    pdistn <- function(x) psevdist(x,object)
-    qdistn <- function(x) qsevdist(x,object)
+    N = length(cell$Loss)
+    sim = rsevdist(N, object)
+    res <- suppressWarnings(stats::ks.test(cell$Loss, sim, alternative = "two.sided"))
     
-    Standard1 = goftest::ad.test(cell$Loss, null = pdistn, nullname = "psevdist")
-    Standard2 = goftest::cvm.test(cell$Loss, null = pdistn, nullname = "psevdist")
-    Standard3 = suppressWarnings(stats::ks.test(cell$Loss, y = pdistn, alternative = "two.sided"))
-    
-    rm(object,pos=.GlobalEnv)
-    if(save_sevdist) object<<-s2 
-    
-    return(list(Standard1, Standard2, Standard3))
+    return(list(res))
     
   }else if(class(object) == "freqdist"){
     periods = unique(cell$Period)
     # count losses per period
-    count = stats::ftable(c(periods, cell$Period), col.vars = 1, 
-                          row.vars = NULL)
+    count = table(cell$Period)
     count = as.vector(count)
     
     # all possible numbers of losses occurred

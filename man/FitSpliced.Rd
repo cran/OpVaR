@@ -1,6 +1,10 @@
 \name{fitSpliced}
 \alias{fitSpliced}
 \alias{fitSplicedPar}
+\alias{dspliced}
+\alias{qspliced}
+\alias{pspliced}
+\alias{rspliced}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
   Estimation of the threshold, the body and the tail parameters for a spliced distribution
@@ -37,15 +41,19 @@
 \value{Returns a sevdist object of type 'spliced' with the given body and tail distributions fitted to the loss data.}
 \details{
   In the spliced model, the distribution of the data is spliced into two distributions, one in the body and another in the tail.
-  Given the threshold t, a density function \eqn{d1} for the body distribution and a density function \eqn{d2} for the tail distribution, the incidental spliced density function
-  has the formula \eqn{d(x)=w*d1(x)} if \eqn{x<=t} and \eqn{d(x)=(1-w)*d2(x)} of \eqn{x>t}.
-  The weight w is needed to normalize the density function.
+  The density \eqn{f(x)} for a spliced distribution with threshold \eqn{\tau}, weights \eqn{w}, body distribution with density \eqn{g} and cumulative distribution function \eqn{G} and tail distribution with density \eqn{h} and cumulative distribution function \eqn{H} is given as below:
+    
+    If \eqn{x\le \tau}: \eqn{f(x) = w* g(x)/G(\tau)}
+  
+  If \eqn{x>\tau}: \eqn{f(x) = (1-w)* h(x)/(1-H(\tau))}
+
+  The weight \eqn{w} is required to normalise the density function.
   The estimation of the spliced distribution consists of three steps.
-  In the first step, the threshold given chosen body and tail distribution is estimated.
+  In the first step, the threshold for the selected body and tail distribution is estimated.
   For further details on the methods for the threshold estimation, see fitThreshold.
   In the second step, the parameters of the body and the tail distribution are obtained by maximum likelihood estimation. 
   For spliced distributions, truncated body distributions are fitted to truncated data. For the estimation of the parameters of the tail distribution, only the data points above the threshold are used.
-  In the last step, the weight w is obtained by maximum likelihood estimation.
+  In the last step, the weight \eqn{w} is obtained.
   
 }
 

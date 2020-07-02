@@ -63,8 +63,7 @@ plot.sevdist=function (x, xmax = NULL, npoints = 500, main = "Severity Distribut
          ylab = "Density", xlim = c(0, xmax))
     lines(xseq2, f[(length(xseq1) + 1):(length(xseq1) + length(xseq2))],
           col = "royalblue", lwd = 2)
-    par(xpd = FALSE)
-    abline(v = sevdist$thresh, lty = 2, col = "darkorange4")
+    abline(v = sevdist$thresh, lty = 2, col = "grey")
   }
   if (sevdist$type == "mixing") {
     if (is.null(xmax))
@@ -72,6 +71,6 @@ plot.sevdist=function (x, xmax = NULL, npoints = 500, main = "Severity Distribut
     curve(dsevdist(x, sevdist), 0, xmax, col = "royalblue",
           lwd = 2, main = main, xlab = "Loss",
           ylab = "Density")
-    abline(v = sevdist$par[[3]][[5]][1], lty = 2, col = "darkorange4")
+    curve(dcauchy(x, sevdist$par[[3]][[5]][1], sevdist$par[[3]][[5]][1]) , lty = 2, col = "grey", add = TRUE)
   }
 }

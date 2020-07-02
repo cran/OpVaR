@@ -11,7 +11,7 @@ Generalized Pareto Distribution
 Density, distribution function, quantile function, and random generation for generalized Pareto distribution.
 }
 \usage{
-dgpd(x, loc, scale, shape)
+dgpd(x, loc, scale, shape, log=FALSE)
 pgpd(q, loc, scale, shape) 
 qgpd(p, loc, scale, shape) 
 rgpd(n, loc, scale, shape) 
@@ -36,7 +36,9 @@ number of observations.
   \item{shape}{
 shape parameter.
 }
-
+  \item{log}{
+logical; logarithm of output
+}
 }
 \details{
 Generalized Pareto Distribution with density

@@ -20,21 +20,24 @@ function(cell,family){
   if(family=="lnorm"){
     pars=c(mean(log(dat)),sd(log(dat)))
   }
-  if(family=="gh"){
-    q0.1 <- as.numeric(stats::quantile(dat,0.1))
-    q0.9 <- as.numeric(stats::quantile(dat,0.9))
+  if (family == "gh") {
+    q0.1 <- as.numeric(stats::quantile(dat, 0.1))
+    q0.9 <- as.numeric(stats::quantile(dat, 0.9))
     A <- stats::median(dat)
     gamma2 <- q0.9 - q0.1
-    gamma3 <- (A-q0.1)/(q0.9-A)
-    gamma4 <- (as.numeric(stats::quantile(dat,0.75))-as.numeric(stats::quantile(dat,0.25)))/gamma2
+    gamma3 <- (A - q0.1)/(q0.9 - A)
+    gamma4 <- (as.numeric(stats::quantile(dat, 0.75)) - as.numeric(stats::quantile(dat, 0.25)))/gamma2
     g <- -log(gamma3)/stats::qnorm(0.9)
     if (g == 0) {
-      h <- 2*log(stats::qnorm(0.75) / (gamma4 * stats::qnorm(0.9))) / (stats::qnorm(0.9)^2 - stats::qnorm(0.75)^2)
-    } else {
-      h <- (2*log( (gamma3^(1-(stats::qnorm(0.75)/stats::qnorm(0.9))) * (gamma3^(2*stats::qnorm(0.75)/stats::qnorm(0.9)) - 1) ) / ((gamma3^2 - 1)*gamma4) )) / (stats::qnorm(0.9)^2 - stats::qnorm(0.75)^2)
+      h <- 2 * log(stats::qnorm(0.75)/(gamma4 * stats::qnorm(0.9)))/(stats::qnorm(0.9)^2 - stats::qnorm(0.75)^2)
     }
-    B <- gamma2/(exp(0.5*h*stats::qnorm(0.9)^2)*(exp(g*stats::qnorm(0.9))-exp(-g*stats::qnorm(0.9)))/g)
-    pars=c(A,B,g,h)
+    else {
+      h <- (2 * log((gamma3^(1 - (stats::qnorm(0.75)/stats::qnorm(0.9))) * (gamma3^(2 * stats::qnorm(0.75)/stats::qnorm(0.9)) -
+                          1))/((gamma3^2 - 1) * gamma4)))/(stats::qnorm(0.9)^2 - stats::qnorm(0.75)^2)
+    }
+    B <- gamma2/(exp(0.5 * h * stats::qnorm(0.9)^2) * (exp(g * stats::qnorm(0.9)) - exp(-g * stats::qnorm(0.9)))/g)
+    if(h<0) base::warning("estimated kurtosis parameter is negative")
+    pars = c(A, B, g, h)
   }
   return(buildPlainSevdist(family,pars))
 }

@@ -41,7 +41,7 @@ Marius Pfeuffer
 \code{\link{sla}}
 }
 \examples{
-\dontrun{
+\donttest{
 ### Load Example Data Set
 data(lossdat)
 

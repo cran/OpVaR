@@ -96,14 +96,14 @@ correction_high <- function(xi, sevdist, type, mean_freq, disp_freq, alpha){
 
 correction_low <- function(xi, sevdist, type, mean_freq, disp_freq){
   sevdist_xi <- do.call(paste("sevdist_xi", as.character(type), sep = "_"), list(xi, sevdist))
-  mean_sev <- try(integrate(function(x){1-psevdist(x, sevdist_xi)}, lower = 0, upper = Inf)$value, silent=TRUE)
+  mean_sev <- try(pracma::quadinf(function(x){1-psevdist(x, sevdist_xi)}, xa = 0, xb = Inf)$Q, silent=TRUE)
   return((mean_freq + disp_freq -1) * mean_sev)
 }
 
 correction_1 <- function(xi, sevdist, type, mean_freq, disp_freq, alpha){
   sevdist_xi <- do.call(paste("sevdist_xi", as.character(type), sep = "_"), list(xi, sevdist))
   basic_SLA <- qsevdist(1 - (1-alpha)/mean_freq, sevdist_xi)
-  return((mean_freq + disp_freq -1) * (integrate(function(x){1-psevdist(x, sevdist_xi)}, lower = 0, upper = basic_SLA)$value))
+  return((mean_freq + disp_freq -1) * pracma::integral(function(x){1-psevdist(x, sevdist_xi)}, xmin = 0, xmax = basic_SLA, method = "Kronrod"))
 }
 
 
@@ -158,7 +158,7 @@ sla <- function(opriskmodel, alpha, xi_low = 0.8, xi_high = 1.2, plot = FALSE){
     simple_VaR <- qsevdist(1 - (1-alpha)/mean_freq,  opriskmodel[[cell]]$sevdist)
     
     # test if mean severity is finite
-    mean_sev <- try(pracma::integral(function(x){x*dsevdist(x, opriskmodel[[cell]]$sevdist)}, xmin = 0, xmax = Inf, method = "Kronrod"), silent=TRUE)
+    mean_sev <- try(pracma::quadinf(function(x){x*dsevdist(x, opriskmodel[[cell]]$sevdist)}, xa = 0, xb = Inf)$Q, silent=FALSE)
     
     # retrieve the tail index from the tail severity distribution
     tailindex <- do.call(paste("tailindex", as.character(cell_type), sep = "_"), list(opriskmodel[[cell]]$sevdist))
@@ -171,7 +171,7 @@ sla <- function(opriskmodel, alpha, xi_low = 0.8, xi_high = 1.2, plot = FALSE){
         c_xi <- (1-tailindex) /2 /gamma(1-2/tailindex) * (gamma(1-1/tailindex)^2)
         correction <- (mean_freq + disp_freq -1) * (1-alpha) / mean_freq * simple_VaR * c_xi / (1-1/tailindex)
       } else if(tailindex == 1){
-        correction <- (mean_freq + disp_freq -1) * (integrate(function(x){1-psevdist(x, opriskmodel[[cell]]$sevdist)}, lower = 0, upper = simple_VaR)$value)
+        correction <- (mean_freq + disp_freq -1) * (pracma::integral(function(x){1-psevdist(x, opriskmodel[[cell]]$sevdist)}, xmin = 0, xmax = simple_VaR, method = "Kronrod"))
       } else {   # xi lies in the sigularity area ==> need monotone spline interpolation
         correction_spline <- spline_SLA(opriskmodel[[cell]]$sevdist, xi_low, xi_high, cell_type, mean_freq, disp_freq, alpha)
         xi_high_tmp <- xi_high
@@ -223,7 +223,7 @@ sla <- function(opriskmodel, alpha, xi_low = 0.8, xi_high = 1.2, plot = FALSE){
     }
     else{
       correction <- (mean_freq + disp_freq -1) * mean_sev
-      if(!is.integer(correction)) correction <- 0
+      if(!is.numeric(correction)) correction <- 0
       approx[[cell]]$interpolation <- FALSE
       
     }

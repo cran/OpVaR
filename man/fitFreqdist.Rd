@@ -37,7 +37,6 @@
 }
 
 \seealso{
-  %% ~~objects to See Also as \code{\link{help}}, ~~~
-    The frequency distribution is fitted using \code{\link{goodfit}} with method 'ML' from the package 'vcd'.
+ To build a freqdist object independently, use \code{\link{buildFreqdist}}.
 }
 
