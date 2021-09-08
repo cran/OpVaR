@@ -1,12 +1,12 @@
 Package: OpVaR
 Type: Package
 Title: Statistical Methods for Modelling Operational Risk
-Version: 1.1.1
-Date: 2020-07-02
+Version: 1.2
+Date: 2021-09-08
 Author: Christina Zou [aut,cre], 
 	Marius Pfeuffer [aut], 
 	Matthias Fischer [aut], 
-	Kristina Dehler [ctb], Nicole Derfuss [ctb], Benedikt Graswald [ctb], Linda Moestel [ctb], Jixuan Wang [ctb], Leonie Wicht [ctb]
+	Nina Buoni [ctb], Kristina Dehler [ctb], Nicole Derfuss [ctb], Benedikt Graswald [ctb], Linda Moestel [ctb], Jixuan Wang [ctb], Leonie Wicht [ctb]
 Maintainer: Christina Zou <christina.zou@maths.ox.ac.uk>
 Description: Functions for computing the value-at-risk in compound Poisson models. 
 	The implementation comprises functions for modeling loss frequencies and loss severities with plain, mixed (Frigessi et al. (2012) <doi:10.1023/A:1024072610684>) or spliced distributions using Maximum Likelihood estimation and Bayesian approaches (Ergashev et al. (2013) <doi:10.21314/JOP.2013.131>). 
@@ -16,6 +16,6 @@ Imports: VineCopula, tea, actuar, truncnorm, ReIns, MASS, pracma, evmix
 Suggests: knitr, rmarkdown
 VignetteBuilder: knitr
 NeedsCompilation: no
-Packaged: 2020-07-01 23:07:57 UTC; zizzy
+Packaged: 2021-09-08 15:36:44 UTC; zizzy
 Repository: CRAN
-Date/Publication: 2020-07-02 07:30:03 UTC
+Date/Publication: 2021-09-08 16:00:11 UTC

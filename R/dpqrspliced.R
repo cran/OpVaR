@@ -17,7 +17,7 @@ pspliced <-
 qspliced<-
   function(p, sevdist){
     sapply(p,function(p){
-      ifelse(p<=sevdist$weights[1],sevdist$par[[2]][[3]](p/sevdist$weights[1]),sevdist$par[[1]][[3]]((p-sevdist$weights[1])/sevdist$weights[2]))
+      ifelse(p<=sevdist$weights[1],sevdist$par[[2]][[3]](p),sevdist$par[[1]][[3]](p))
     }
     )
   }

@@ -1,5 +1,5 @@
 %\VignetteEngine{knitr::rmarkdown}
-%\VignetteIndexEntry{OpVaR: Modeling Operational (Value-At-)Risk in R}
+%\VignetteIndexEntry{OpVaR: Modelling Operational (Value-At-)Risk in R}
 
 ```{r setup, include=FALSE}
 library(knitr)

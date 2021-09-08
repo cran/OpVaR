@@ -56,7 +56,7 @@ qmixing<-function (p, sevdist, lower.tail = TRUE)
   sapply(p, function(p){
   if (!lower.tail) p = 1 - p
 
-    q = c(q, uniroot(function(x) {pmixing(x,sevdist)-p}, c(sevdist$par[[2]][[3]](p),sevdist$par[[1]][[3]](p)), extendInt = "yes")$root)
+    q =uniroot(f = function(x) {pmixing(x,sevdist)-p}, interval= c(sevdist$par[[2]][[3]](p),sevdist$par[[1]][[3]](p)), extendInt = "yes")$root
 
   return(as.numeric(q))
   })
